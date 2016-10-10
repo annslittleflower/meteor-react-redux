@@ -1,8 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { Todos } from '../imports/lib/collection';
+import { List } from '/imports/api/lists/list-collection.js';
 
-export default function () {
-  Meteor.publish('allTodos', function() {
-    return Todos.find({});
-  })
-}
+Meteor.publish('allTodos', function(){
+  return List.find({});
+});
+

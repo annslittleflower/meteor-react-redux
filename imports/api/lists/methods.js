@@ -1,15 +1,14 @@
 import { Meteor } from 'meteor/meteor';
-import { Todos } from './list-collection.js';
+import { List } from './list-collection.js';
 
-export default function () {
-  Meteor.methods({
-    'addTask': (task) => {
-      Todos.insert(task)
-    }
-  })
-  Meteor.methods({
-    'removeTask': (taskId) => {
-      Todos.remove({_id: taskId})
-    }
-  })
-}
+
+Meteor.methods({
+  'addTask' (task) {
+    List.insert(task)
+  },
+
+  'removeTask'(taskId) {
+    List.remove({_id: taskId})
+  }
+});
+
