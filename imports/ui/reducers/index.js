@@ -1,12 +1,7 @@
+import { combineReducers } from 'redux'
+import { updateTask }  from './updateTask.js'
 
-const initState = {};
-export const reducer = (state = initState, action) => {
-  switch (action.type) {
-    case "UPDATE_TASK":
-      return {
-        ...state,
-        tasks: action.tasks
-      }
-  }
-  return state
-}
+
+export const rootReducer = combineReducers({
+  updateTask: updateTask
+})

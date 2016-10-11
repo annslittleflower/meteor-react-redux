@@ -4,7 +4,7 @@ import { List } from './list-collection.js';
 
 Meteor.methods({
   'addTask' (task) {
-    List.insert(task)
+    List.insert({text: task})
   },
 
   'removeTask'(taskId) {

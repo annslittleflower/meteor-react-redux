@@ -1,6 +1,6 @@
-export const addTask = (task) => {
-  return (dispatch, getState, { Meteor }) => {
-    Meteor.call("addTask", task, (err, res) => {
+export const addTask = (text) => {
+  return () => {
+    Meteor.call("addTask", text, (err, res) => {
       if (err) return console.error(err)
     });
   }

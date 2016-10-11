@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import TaskListComponent from '../components/taskList.js';
-import { subscribe, addTask } from  '../actions';
+import { subscribe } from  '../actions/allTodosSubscribe.js';
+import { addTask } from  '../actions/addTask';
 
-const mapState = ({tasks, count}) => {
+const mapStateToProps = ({tasks}) => {
   return {
-    tasks,
-    count
+    tasks
   }
 }
-const mapDispatch = (dispatch, getState) => {
+
+const mapDispatchToProps = (dispatch) => {
   return {
     subscribe: () => dispatch(subscribe()),
     addTask: (task) => dispatch(addTask(task)),
   }
 }
-export default connect(mapState, mapDispatch)(TaskListComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskListComponent)
