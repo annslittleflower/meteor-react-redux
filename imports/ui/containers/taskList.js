@@ -4,15 +4,29 @@ import { connect } from 'react-redux';
 import TaskListComponent from '../components/taskList.js';
 import { addTask } from  '../actions/addTask';
 import { List } from '/imports/api/lists/list-collection.js';
-
+import { store } from '../store.js';
 
 
 const TaskListContainer = createContainer(() => {
+  let list;
   const todoSub = Meteor.subscribe('list');
-  const list = todoSub.ready() ? List.find({}).fetch() : [];
+
+  if(todoSub.ready()) {
+    list = List.find({}).fetch();
+
+    store.dispatch({
+      type: 'UPDATE_TASKS',
+      tasks: list
+    });
+
+    console.log(store.getState());
+
+  }else {
+    list = [];
+  }
 
   return {
-    tasks:list
+    tasks: list
   }
 }, TaskListComponent);
 
@@ -21,7 +35,7 @@ const TaskListContainer = createContainer(() => {
 
 const mapStateToProps = () => {
   return {
-    
+
   }
 }
 
