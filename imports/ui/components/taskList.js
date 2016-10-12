@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
+
 
 export default class TaskListComponent extends Component {
   
   componentDidMount() {
-    this.computation = this.props.subscribe();
+    
   }
 
   componentWillUnmount() {
-    this.computation.stop()
+   
+  }
+
+
+  handleClick(e){
+    e.preventDefault();
+    const node = findDOMNode(this.refs.taskInput);
+    if (node.value === '') return;
+    this.props.addTask(node.value);
+    node.value = '';
   }
 
   renderTasks() {
-    return (this.props.tasks || []).map((task, index) => (
+    return (this.props.tasks).map((task, index) => (
         <li key={index}>{task.text}</li>
     ));
 
   }
 
   render() {
-     console.log(this.props.tasks + 'hello');
     return (
       <div>
-        <input type='text' autoFocus/>
-        <button>Add Todo</button>
+        <input type='text'
+               ref='taskInput'
+               autoFocus/>
+        <button onClick={this.handleClick.bind(this)}>Add Todo</button>
         <ul>
           {this.renderTasks()}
         </ul>

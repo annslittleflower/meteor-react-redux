@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
-
 import TaskListComponent from '../components/taskList.js';
-import { subscribe } from  '../actions/allTodosSubscribe.js';
 import { addTask } from  '../actions/addTask';
+import { List } from '/imports/api/lists/list-collection.js';
 
-const mapStateToProps = ({tasks}) => {
+
+
+const TaskListContainer = createContainer(() => {
+  const todoSub = Meteor.subscribe('list');
+  const list = todoSub.ready() ? List.find({}).fetch() : [];
+
   return {
-    tasks
+    tasks:list
+  }
+}, TaskListComponent);
+
+
+
+
+const mapStateToProps = () => {
+  return {
+    
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    subscribe: () => dispatch(subscribe()),
-    addTask: (task) => dispatch(addTask(task)),
+    addTask: (text) => dispatch(addTask(text))
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(TaskListComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskListContainer);
